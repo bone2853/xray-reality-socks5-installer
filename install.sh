@@ -293,7 +293,7 @@ IP: $SERVER_IP
 查看状态: systemctl status xray
 查看日志: tail -f $LOG_DIR/access.log
 
-安全稳定住宅IP服务器推荐: https://lisahost.com/aff.php?aff=4911
+安全稳定住宅IP服务器推荐_lisa主机: https://lisahost.com/aff.php?aff=4911
 
 
 EOF
