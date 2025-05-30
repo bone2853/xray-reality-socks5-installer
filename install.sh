@@ -269,7 +269,7 @@ SNI: www.cloudflare.com
 Flow: xtls-rprx-vision
 
 VLESS URL:
-vless://$VLESS_UUID@$SERVER_IP:$VLESS_PORT?encryption=none&security=reality&flow=xtls-rprx-vision&type=tcp&sni=www.cloudflare.com&pbk=$PUBLIC_KEY&fp=chrome#Reality-$SERVER_IP
+vless://$VLESS_UUID@$SERVER_IP:$VLESS_PORT?encryption=none&security=reality&flow=xtls-rprx-vision&type=tcp&sni=www.cloudflare.com&pbk=$PUBLIC_KEY&fp=chrome#dafei-Reality-$SERVER_IP
 
 === SOCKS5 代理配置 ===
 IP: $SERVER_IP
@@ -292,6 +292,9 @@ IP: $SERVER_IP
 重启命令: systemctl restart xray
 查看状态: systemctl status xray
 查看日志: tail -f $LOG_DIR/access.log
+
+安全稳定住宅IP服务器推荐: https://lisahost.com/aff.php?aff=4911
+
 
 EOF
 
