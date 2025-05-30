@@ -150,9 +150,11 @@ generate_config() {
     # 生成随机参数
     VLESS_UUID=$(cat /proc/sys/kernel/random/uuid)
     VLESS_PORT=$((RANDOM % 10000 + 20000))
-    SOCKS_PORT=$((RANDOM % 1000 + 10000))
-    SOCKS_USER="user_$(head /dev/urandom | tr -dc a-z0-9 | head -c 8)"
-    SOCKS_PASS="$(head /dev/urandom | tr -dc A-Za-z0-9 | head -c 16)"
+    
+    # SOCKS5 固定配置参数
+    SOCKS_PORT=24368
+    SOCKS_USER="dafei"
+    SOCKS_PASS="Da24Fei368"
     
     # 生成Reality密钥对
     cd $CONFIG_DIR/bin
