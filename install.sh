@@ -294,7 +294,7 @@ IP: $SERVER_IP
 查看日志: tail -f $LOG_DIR/access.log
 
 安全稳定住宅IP服务器推荐_lisa主机: https://lisahost.com/aff.php?aff=4911
-
+lisa丽萨服务器优惠码(下单时填写有优惠): TS-CBP205DQJE (2024/9 目前最近）
 
 EOF
 
