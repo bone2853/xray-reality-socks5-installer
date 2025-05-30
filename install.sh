@@ -79,8 +79,9 @@ install_xray() {
     print_info "下载并安装Xray $XRAY_VERSION..."
     
     # 创建目录
-    mkdir -p $CONFIG_DIR/{conf,bin}
-    mkdir -p $LOG_DIR
+    mkdir -p "$CONFIG_DIR/bin"
+    mkdir -p "$CONFIG_DIR/conf"
+    mkdir -p "$LOG_DIR"
     
     # 下载Xray
     ARCH=$(uname -m)
@@ -92,13 +93,51 @@ install_xray() {
     
     DOWNLOAD_URL="https://github.com/xtls/xray-core/releases/download/$XRAY_VERSION/xray-linux-$ARCH.zip"
     
-    cd /tmp
-    wget -O xray.zip "$DOWNLOAD_URL"
-    unzip -o xray.zip
-    mv xray $CONFIG_DIR/bin/
-    chmod +x $CONFIG_DIR/bin/xray
+    print_info "正在从 $DOWNLOAD_URL 下载 Xray..."
+    cd /tmp # 操作目录切换到 /tmp
+    if ! wget -qO xray.zip "$DOWNLOAD_URL"; then
+        print_error "Xray 下载失败！请检查网络或URL。"
+        exit 1
+    fi
     
-    print_success "Xray安装完成"
+    print_info "正在解压 Xray..."
+    # -o: overwrite files without prompting. -q: quiet mode.
+    if ! unzip -qo xray.zip; then 
+        print_error "Xray 解压失败！"
+        rm -f xray.zip # 清理下载的zip
+        exit 1
+    fi
+    
+    print_info "正在安装 Xray 可执行文件和数据文件..."
+    # 确保源文件存在再移动
+    if [ ! -f "xray" ]; then
+        print_error "解压后的 xray 可执行文件未在 /tmp 找到！"
+        rm -f xray.zip geoip.dat geosite.dat # 清理下载和可能解压的文件
+        exit 1
+    fi
+    mv xray "$CONFIG_DIR/bin/"
+
+    if [ ! -f "geoip.dat" ]; then
+        print_error "解压后的 geoip.dat 文件未在 /tmp 找到！Xray的 geoip 功能将无法使用。"
+        # 由于 geoip:private 规则的存在，这个文件很重要
+        rm -f xray.zip geosite.dat # 清理下载和可能解压的文件
+        exit 1 
+    fi
+    mv geoip.dat "$CONFIG_DIR/bin/"
+
+    if [ ! -f "geosite.dat" ]; then
+        print_warning "解压后的 geosite.dat 文件未在 /tmp 找到。这可能影响 geosite 相关规则。"
+        # 对于当前脚本生成的配置，geosite.dat 不是强制性的，所以只给警告
+    else
+        mv geosite.dat "$CONFIG_DIR/bin/"
+    fi
+    
+    chmod +x "$CONFIG_DIR/bin/xray"
+    
+    # 清理下载的zip文件
+    rm -f xray.zip
+        
+    print_success "Xray 安装完成"
 }
 
 # 生成配置
