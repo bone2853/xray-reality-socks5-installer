@@ -151,10 +151,10 @@ generate_config() {
     VLESS_UUID=$(cat /proc/sys/kernel/random/uuid)
     VLESS_PORT=$((RANDOM % 10000 + 20000))
     
-    # SOCKS5 固定端口，随机用户名和密码（安全性更好）
+    # SOCKS5 固定端口，固定用户名和密码
     SOCKS_PORT=24368
-    SOCKS_USER="user_$(head /dev/urandom | tr -dc a-z0-9 | head -c 8)"
-    SOCKS_PASS="$(head /dev/urandom | tr -dc A-Za-z0-9 | head -c 16)"
+    SOCKS_USER="dafei"
+    SOCKS_PASS="Kuajing_16888"
     
     # 生成Reality密钥对
     cd $CONFIG_DIR/bin
@@ -293,8 +293,10 @@ IP: $SERVER_IP
 查看状态: systemctl status xray
 查看日志: tail -f $LOG_DIR/access.log
 
-安全稳定住宅IP服务器推荐_lisa主机: https://lisahost.com/aff.php?aff=4911
-lisa丽萨服务器优惠码(下单时填写有优惠): TS-CBP205DQJE (2024/9 目前最近）
+稳定住宅IP服务器_lisa: https://lisahost.com/aff.php?aff=4911
+优惠码: TS-CBP205DQJE (2024/9 目前最近）
+
+代理推荐(最低1元起): https://www.awyydsgroup.xyz/register?aff=1PDT0H0W
 
 EOF
 
