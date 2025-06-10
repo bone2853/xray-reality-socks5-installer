@@ -277,13 +277,6 @@ IP: $SERVER_IP
 用户名: $SOCKS_USER
 密码: $SOCKS_PASS
 
-=== 指纹浏览器设置 ===
-代理类型: SOCKS5
-代理IP: $SERVER_IP
-代理端口: $SOCKS_PORT
-用户名: $SOCKS_USER
-密码: $SOCKS_PASS
-
 === 文件位置 ===
 配置目录: $CONFIG_DIR
 日志目录: $LOG_DIR
@@ -456,15 +449,15 @@ show_menu() {
     echo
     echo -e "${GREEN}请选择操作：${NC}"
     echo
-    echo "  ${YELLOW}1.${NC} 查看配置信息"
-    echo "  ${YELLOW}2.${NC} 查看服务状态"
-    echo "  ${YELLOW}3.${NC} 查看实时日志"
-    echo "  ${YELLOW}4.${NC} 重启服务"
-    echo "  ${YELLOW}5.${NC} 停止服务"
-    echo "  ${YELLOW}6.${NC} 启动服务"
-    echo "  ${YELLOW}7.${NC} 重新生成配置"
-    echo "  ${YELLOW}8.${NC} 完全卸载"
-    echo "  ${YELLOW}0.${NC} 退出"
+    echo -e "  ${YELLOW}1.${NC} 查看配置信息"
+    echo -e "  ${YELLOW}2.${NC} 查看服务状态"
+    echo -e "  ${YELLOW}3.${NC} 查看实时日志"
+    echo -e "  ${YELLOW}4.${NC} 重启服务"
+    echo -e "  ${YELLOW}5.${NC} 停止服务"
+    echo -e "  ${YELLOW}6.${NC} 启动服务"
+    echo -e "  ${YELLOW}7.${NC} 重新生成配置"
+    echo -e "  ${YELLOW}8.${NC} 完全卸载"
+    echo -e "  ${YELLOW}0.${NC} 退出"
     echo
     echo -n -e "${CYAN}请输入选项 [0-8]: ${NC}"
 }
