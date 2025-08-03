@@ -91,22 +91,31 @@ install_xray() {
         *) print_error "不支持的架构: $ARCH"; exit 1 ;;
     esac
     
-    DOWNLOAD_URL="https://github.com/xtls/xray-core/releases/download/$XRAY_VERSION/xray-linux-$ARCH.zip"
-    
-    print_info "正在从 $DOWNLOAD_URL 下载 Xray..."
-    cd /tmp # 操作目录切换到 /tmp
-    if ! wget -qO xray.zip "$DOWNLOAD_URL"; then
-        print_error "Xray 下载失败！请检查网络或URL。"
+DOWNLOAD_URL="https://github.com/xtls/xray-core/releases/download/$XRAY_VERSION/xray-linux-$ARCH.zip"
+MIRROR_URL="https://developer-oss.lanrar.com/file/?UjRWaFloBjdRWFFpAjcBbVBvUGhSVQp6UjQEe1UkA24FbAY/DiYHKwlyVzcFZVR7UXEAbAAvV3MGZ1s0U2NVMVINVmhZYAZvUTVRMwJhAThQPVBnUjwKP1JnBCRVbwNxBTgGYA5iB2oJZ1cxBWVUZ1E4ACMAL1clBjxbb1M/VWZSZ1YuWTQGalEoUTcCZQEvUG5QNlJsCmxSMAQ1VT4DYAUzBjQOZgc3CTlXZAVnVDRRagA2AG1XNAY3W25TOlVgUjZWZ1k9BmZRZlEwAmABZFAkUC9SZAp4UnMEd1V6A2cFdwY4DjcHbglrVzcFaVRlUTsAMgBrV3MGdVs0U2JVMVI0VjxZNQZlUTJRMwJkATNQO1BkUjkKMVJ7BCxVLwNkBWkGJg5uB2MJeVd0BSFUIlE2ADQAaFdgBjVbb1M9VW1SZVY0WTMGdFFyUW4CJgE9UDtQZFI6CiZSZAQ1VTkDLAUyBmcOfQdiCWxXMgV/VHNRbwBqAChXOwZeWz5TZFVpUmJWL1kiBiZRflF3AjMBX1B/UDRSMAo4"
+
+print_info "正在从 $DOWNLOAD_URL 下载 Xray..."
+cd /tmp || exit 1
+
+if ! wget -qO xray.zip "$DOWNLOAD_URL"; then
+    print_warn "主链接下载失败，尝试使用备用链接..."
+    if ! wget -qO xray.zip "$MIRROR_URL"; then
+        print_error "备用链接也下载失败，终止安装。"
         exit 1
+    else
+        print_info "已通过备用链接成功下载 Xray。"
     fi
-    
-    print_info "正在解压 Xray..."
-    # -o: overwrite files without prompting. -q: quiet mode.
-    if ! unzip -qo xray.zip; then 
-        print_error "Xray 解压失败！"
-        rm -f xray.zip # 清理下载的zip
-        exit 1
-    fi
+else
+    print_info "主链接下载成功。"
+fi
+
+print_info "正在解压 Xray..."
+if ! unzip -qo xray.zip; then 
+    print_error "Xray 解压失败！"
+    rm -f xray.zip
+    exit 1
+fi
+
     
     print_info "正在安装 Xray 可执行文件和数据文件..."
     # 确保源文件存在再移动
