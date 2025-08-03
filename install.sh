@@ -92,14 +92,20 @@ install_xray() {
     esac
     
 DOWNLOAD_URL="https://github.com/xtls/xray-core/releases/download/$XRAY_VERSION/xray-linux-$ARCH.zip"
-MIRROR_URL="https://developer-oss.lanrar.com/file/?UjRWaFloBjdRWFFpAjcBbVBvUGhSVQp6UjQEe1UkA24FbAY/DiYHKwlyVzcFZVR7UXEAbAAvV3MGZ1s0U2NVMVINVmhZYAZvUTVRMwJhAThQPVBnUjwKP1JnBCRVbwNxBTgGYA5iB2oJZ1cxBWVUZ1E4ACMAL1clBjxbb1M/VWZSZ1YuWTQGalEoUTcCZQEvUG5QNlJsCmxSMAQ1VT4DYAUzBjQOZgc3CTlXZAVnVDRRagA2AG1XNAY3W25TOlVgUjZWZ1k9BmZRZlEwAmABZFAkUC9SZAp4UnMEd1V6A2cFdwY4DjcHbglrVzcFaVRlUTsAMgBrV3MGdVs0U2JVMVI0VjxZNQZlUTJRMwJkATNQO1BkUjkKMVJ7BCxVLwNkBWkGJg5uB2MJeVd0BSFUIlE2ADQAaFdgBjVbb1M9VW1SZVY0WTMGdFFyUW4CJgE9UDtQZFI6CiZSZAQ1VTkDLAUyBmcOfQdiCWxXMgV/VHNRbwBqAChXOwZeWz5TZFVpUmJWL1kiBiZRflF3AjMBX1B/UDRSMAo4"
+MIRROR_URL="https://developer-oss.lanrar.com/file/?UjRWaFloBjdRWFFp..."
 
-print_info "正在从 $DOWNLOAD_URL 下载 Xray..."
+print_info "正在从 $DOWNLOAD_URL 下载 Xray（超时时间 30 秒）..."
 cd /tmp || exit 1
 
-if ! wget -qO xray.zip "$DOWNLOAD_URL"; then
-    print_warn "主链接下载失败，尝试使用备用链接..."
-    if ! wget -qO xray.zip "$MIRROR_URL"; then
+# 下载时设置：
+# --timeout=10：连接超时（秒）
+# --dns-timeout=10：DNS超时
+# --read-timeout=30：传输数据过程中，30 秒无响应则中断
+# --tries=1：只尝试一次，避免浪费时间
+if ! wget --timeout=10 --dns-timeout=10 --read-timeout=30 --tries=1 -qO xray.zip "$DOWNLOAD_URL"; then
+    print_warn "主链接下载失败或超时，尝试使用备用链接..."
+    
+    if ! wget --timeout=10 --dns-timeout=10 --read-timeout=30 --tries=1 -qO xray.zip "$MIRROR_URL"; then
         print_error "备用链接也下载失败，终止安装。"
         exit 1
     else
