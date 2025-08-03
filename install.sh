@@ -92,9 +92,9 @@ install_xray() {
     esac
     
 MIRROR_URL="https://github.com/xtls/xray-core/releases/download/$XRAY_VERSION/xray-linux-$ARCH.zip"
-DOWNLOAD_URL="https://dafei168.win/upload/Xray-linux-64.zip"
+DOWNLOAD_URL="http://8.134.201.84/download/Xray-linux-64.zip"
 
-print_info "正在从 $DOWNLOAD_URL 下载 Xray（超时时间 30 秒）..."
+print_info "正在从镜像网站下载 Xray（超时时间 30 秒）..."
 cd /tmp || exit 1
 
 print_warn() {
