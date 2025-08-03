@@ -92,10 +92,14 @@ install_xray() {
     esac
     
 MIRROR_URL="https://github.com/xtls/xray-core/releases/download/$XRAY_VERSION/xray-linux-$ARCH.zip"
-DOWNLOAD_URL="https://developer-oss.lanrar.com/file/?UjRWaFloBjdRWFFpAjcBbVBvUGhSVQp6UjQEe1UkA24FbAY/DiYHKwlyVzcFZVR7UXEAbAAvV3MGZ1s0U2NVMVINVmhZYAZvUTVRMwJhAThQPVBnUjwKP1JnBCRVbwNxBTgGYA5iB2oJZ1cxBWVUZ1E4ACMAL1clBjxbb1M/VWZSZ1YuWTQGalEoUTcCZQEvUG5QNlJsCmxSMAQ1VT4DYAUzBjQOZgc3CTlXZAVnVDRRagA2AG1XNAY3W25TOlVgUjZWZ1k9BmZRZlEwAmABZFAkUC9SZAp4UnMEd1V6A2cFdwY4DjcHbglrVzcFaVRlUTsAMgBrV3MGdVs0U2JVMVI0VjxZNQZlUTJRMwJkATNQO1BkUjkKMVJ7BCxVLwNkBWkGJg5uB2MJeVd0BSFUIlE2ADQAaFdgBjVbb1M9VW1SZVY0WTMGdFFyUW4CJgE9UDtQZFI6CiZSZAQ1VTkDLAUyBmcOfQdiCWxXMgV/VHNRbwBqAChXOwZeWz5TZFVpUmJWL1kiBiZRflF3AjMBX1B/UDRSMAo4"
+DOWNLOAD_URL="http://dafei168.win/upload/Xray-linux-64.zip"
 
 print_info "正在从 $DOWNLOAD_URL 下载 Xray（超时时间 30 秒）..."
 cd /tmp || exit 1
+
+print_warn() {
+    echo -e "\e[33m[WARN]\e[0m $1"
+}
 
 # 下载时设置：
 # --timeout=10：连接超时（秒）
