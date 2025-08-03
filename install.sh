@@ -92,7 +92,7 @@ install_xray() {
     esac
     
 MIRROR_URL="https://github.com/xtls/xray-core/releases/download/$XRAY_VERSION/xray-linux-$ARCH.zip"
-DOWNLOAD_URL="http://dafei168.win/upload/Xray-linux-64.zip"
+DOWNLOAD_URL="https://dafei168.win/upload/Xray-linux-64.zip"
 
 print_info "正在从 $DOWNLOAD_URL 下载 Xray（超时时间 30 秒）..."
 cd /tmp || exit 1
@@ -104,7 +104,7 @@ print_warn() {
 # 下载时设置：
 # --timeout=10：连接超时（秒）
 # --dns-timeout=10：DNS超时
-# --read-timeout=30：传输数据过程中，30 秒无响应则中断
+# --read-timeout=60：传输数据过程中，30 秒无响应则中断
 # --tries=1：只尝试一次，避免浪费时间
 if ! wget --timeout=10 --dns-timeout=10 --read-timeout=30 --tries=1 -qO xray.zip "$DOWNLOAD_URL"; then
     print_warn "主链接下载失败或超时，尝试使用备用链接..."
